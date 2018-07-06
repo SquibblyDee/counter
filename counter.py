@@ -4,13 +4,14 @@ app.secret_key = 'yobogoya'
 
 @app.route('/')
 def index():
+    if 'count' not in session:
+        session['count']=0
     session['count']+=1
     return render_template('counter.html', counter=session['count'])
 
 @app.route('/destroy_session')
 def destroy():
     session.clear()
-    session['count']=0
     return redirect('/')
 
 @app.route('/plus_two')
